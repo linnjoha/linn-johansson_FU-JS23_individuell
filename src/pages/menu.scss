@@ -1,0 +1,50 @@
+@use "../sass/" as *;
+
+.menu-wrapper {
+  @include setColorAndFont(
+    $airbean-pink,
+    $airbean-brown,
+    $heading-font,
+    $text-font
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+
+  text-align: center;
+}
+.menu {
+  padding: 1rem;
+}
+.item-container-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+.item-info-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  color: $airbean-white;
+  background-color: $airbean-brown;
+}
+h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+h1 {
+  margin: 1rem;
+}
+.item-info {
+  letter-spacing: normal;
+  font-size: 0.8rem;
+  margin: 0;
+}

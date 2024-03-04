@@ -7,13 +7,18 @@
     $heading-font-landing,
     $text-font
   );
+
   display: flex;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
+
 .logo-wrapper {
+  min-width: 250px;
+  z-index: 2;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,8 +39,19 @@
 }
 p {
   font-size: 0.5rem;
+  letter-spacing: 3px;
 }
 h1 {
-  font-size: 2.3rem;
+  font-size: 2.7rem;
   margin: 0;
+}
+.leaf-l,
+.leaf-r {
+  background-color: $airbean-green;
+}
+.leaf-l {
+  margin-right: -6rem;
+}
+.leaf-r {
+  margin-left: -5rem;
 }

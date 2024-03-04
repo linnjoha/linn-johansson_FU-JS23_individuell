@@ -1,0 +1,23 @@
+@use "../../sass/" as *;
+
+.navigator {
+  display: flex;
+  justify-content: space-between;
+  background-image: url(../../assets/leafs-header.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 123px;
+}
+.nav-img-wrapper {
+  margin: 1rem;
+  height: 48px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $airbean-white;
+  border-radius: 50%;
+  &.__cart {
+    background-color: $airbean-brown;
+  }
+}

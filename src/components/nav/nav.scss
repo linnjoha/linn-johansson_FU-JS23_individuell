@@ -1,0 +1,10 @@
+@use "../../sass/" as *;
+
+.nav-wrapper {
+  @include setColorAndFont(
+    $airbean-brown,
+    $airbean-white,
+    $heading-font,
+    $text-font
+  );
+}

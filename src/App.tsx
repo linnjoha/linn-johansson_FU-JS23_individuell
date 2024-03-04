@@ -4,7 +4,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-
+import "./app.scss";
 import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Menu from "./pages/Menu";

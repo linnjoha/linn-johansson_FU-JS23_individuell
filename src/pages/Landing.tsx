@@ -1,7 +1,7 @@
 import "./landing.scss";
 import Logo from "../assets/logo.svg";
-import LeafL from "../assets/leafs-header.png";
-import LeafR from "../assets/leafs-footer.png";
+import LeafL from "../assets/leafs-left.png";
+import LeafR from "../assets/leafs-right.png";
 
 const Landing = () => {
   return (
