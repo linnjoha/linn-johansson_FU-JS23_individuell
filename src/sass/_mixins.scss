@@ -1,0 +1,10 @@
+@mixin setColorAndFont($bgColor, $textColor, $headingFont, $textFont) {
+  background-color: $bgColor;
+  color: $textColor;
+  &h2 {
+    font-family: $headingFont;
+  }
+  &p {
+    font-family: $textFont;
+  }
+}

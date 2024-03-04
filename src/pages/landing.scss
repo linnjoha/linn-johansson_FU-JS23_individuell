@@ -1,0 +1,41 @@
+@use "../sass/" as *;
+
+.landing-wrapper {
+  @include setColorAndFont(
+    $airbean-green,
+    $airbean-white,
+    $heading-font-landing,
+    $text-font
+  );
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.airbean-logo-wrapper {
+  height: 4rem;
+  width: 4rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+p {
+  font-size: 0.5rem;
+}
+h1 {
+  font-size: 2.3rem;
+  margin: 0;
+}
