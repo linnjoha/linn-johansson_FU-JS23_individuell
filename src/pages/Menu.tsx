@@ -1,6 +1,6 @@
 import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 import "./menu.scss";
-
 const itemContainer = (
   <section className="item-container-wrapper">
     <div className="add">
@@ -56,6 +56,7 @@ const Menu = () => {
         <h1>Meny</h1>
         {itemContainer}
       </article>
+      <Footer />
     </div>
   );
 };

@@ -1,0 +1,8 @@
+@use "../../sass/" as *;
+
+.footer {
+  background-image: url("../../assets/leafs-footer.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 73px;
+}
