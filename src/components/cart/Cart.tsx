@@ -5,12 +5,13 @@ import { useRef, useState } from "react";
 
 const Cart = () => {
   const cartRef = useRef<HTMLDialogElement>(null);
+  const [open, setOpen] = useState(false);
   const toggleDialog = () => {
     if (cartRef.current && cartRef.current) {
-      if (cartRef.current.open) {
-        cartRef.current.close();
+      if (open) {
+        setOpen(false);
       } else {
-        cartRef.current && cartRef.current.showModal();
+        setOpen(true);
       }
     } else console.log("hello");
   };
@@ -23,7 +24,7 @@ const Cart = () => {
       >
         <img src={`${CartIcon}`} alt="navicon" />
       </picture>
-      <dialog ref={cartRef} className="cart-dialog">
+      <dialog open={open} ref={cartRef} className="cart-dialog">
         <article className="cart-wrapper">
           <img className="tag-up" src={`${TagUp}`} alt="" />
           <h1 className="cart-heading">Din Beställning</h1>

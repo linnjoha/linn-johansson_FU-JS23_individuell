@@ -1,6 +1,7 @@
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import "./menu.scss";
+import Dots from "../assets/dots.svg";
 const itemContainer = (
   <section className="item-container-wrapper">
     <div className="add">
@@ -19,29 +20,9 @@ const itemContainer = (
     </div>
     <section className="item-info-wrapper">
       <h2>
-        Kaffe{" "}
-        <svg
-          width="122"
-          height="1"
-          viewBox="0 0 122 1"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="1.18094"
-            y1="0.5"
-            x2="120.936"
-            y2="0.5"
-            stroke="black"
-            stroke-opacity="0.4"
-            stroke-miterlimit="2.09003"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-dasharray="0.5 4"
-          />
-        </svg>
+        Kaffe
+        <img src={`${Dots}`} alt="" />
       </h2>
-
       <h2>50 kr</h2>
       <p className="item-info">Bryggkaffe</p>
     </section>
