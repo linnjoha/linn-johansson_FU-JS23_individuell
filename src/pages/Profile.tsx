@@ -1,7 +1,12 @@
-type Props = {};
+import "./profile.scss";
+import Header from "../components/header/Header";
 
-const Profile = (props: Props) => {
-  return <div>Profile</div>;
+const Profile = () => {
+  return (
+    <article className="profile-wrapper">
+      <Header />
+    </article>
+  );
 };
 
 export default Profile;

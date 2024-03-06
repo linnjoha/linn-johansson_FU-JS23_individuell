@@ -1,15 +1,17 @@
 @use "../../sass/" as *;
-
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.772);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .cart-dialog {
-  backdrop-filter: rgba(0, 0, 0, 0.772);
   border: none;
   border-radius: 3px;
   margin: 0 auto;
   width: 310px;
-  margin-top: -15px;
+  top: 75px;
+  & .__cart {
+    position: fixed;
+    transform: translateY(-91px) translateX(250px);
+  }
 }
 .cart-wrapper {
   @include setColorAndFont(
@@ -19,12 +21,47 @@ dialog::backdrop {
     $text-font
   );
   @include setDisplayFlex();
+  gap: 2rem;
+}
+.cart-heading {
+  font-size: 2rem;
 }
 .tag-up {
-  align-self: flex-end;
-  margin-top: -30px;
+  position: fixed;
+
+  transform: translateY(-28px) translateX(280px);
 }
 .cart-btn {
   @include setButtonStyle($airbean-brown, $airbean-white, $heading-font);
   padding: 0.7rem 2rem 0.7rem;
+}
+.cartitem-container-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cartitem-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cart-total {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.small-info-text {
+  font-size: 12px;
+  margin: 0;
+}
+.__sum {
+  align-self: baseline;
+}
+.qnty {
+  margin-bottom: -5px;
+}
+.change-cart-qnty {
+  margin: 0;
 }

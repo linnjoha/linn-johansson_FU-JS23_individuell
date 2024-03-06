@@ -1,0 +1,11 @@
+@use "../sass" as *;
+
+.profile-wrapper {
+  width: 375px;
+  @include setColorAndFont(
+    $airbean-brown,
+    $airbean-white,
+    $heading-font,
+    $text-font
+  );
+}
