@@ -11,8 +11,8 @@ const Landing = () => {
         <picture className="airbean-logo-wrapper">
           <img className="airbean-logo" src={`${Logo}`} alt="airbean-logo" />
         </picture>
-        <h1>AIR BEAN</h1>
-        <p>DRONEDELIVERED COFFEE</p>
+        <h1 className="landing-heading">AIR BEAN</h1>
+        <p className="landing-text">DRONEDELIVERED COFFEE</p>
       </section>
       <img className="leaf-r" src={`${LeafR}`} alt="leafs" />
     </div>

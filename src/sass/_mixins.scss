@@ -11,3 +11,22 @@
     font-family: $textFont;
   }
 }
+
+@mixin setDisplayFlex() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+@mixin setButtonStyle($bgColor, $textColor, $textFont) {
+  background-color: $bgColor;
+  color: $textColor;
+  font-family: $textFont;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 3.1rem;
+  border: none;
+}

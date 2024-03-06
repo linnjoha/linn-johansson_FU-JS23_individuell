@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Menu from "./pages/Menu";
 import Profile from "./pages/Profile";
 import Status from "./pages/Status";
+// import Cart from "./components/cart/Cart";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route path="/landing" element={<Landing />} />
       <Route path="/profil" element={<Profile />} />
       <Route path="/status" element={<Status />} />
+      {/* <Route path="/cart" element={<Cart />} /> */}
     </Route>
   )
 );

@@ -1,0 +1,30 @@
+@use "../../sass/" as *;
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.772);
+}
+.cart-dialog {
+  border: none;
+  border-radius: 3px;
+  margin: 0 auto;
+  width: 310px;
+  margin-top: 70px;
+}
+.cart-wrapper {
+  @include setColorAndFont(
+    $airbean-white,
+    $airbean-brown,
+    $heading-font,
+    $text-font
+  );
+  @include setDisplayFlex();
+}
+.tag-up {
+  align-self: flex-end;
+  margin-right: -3px;
+  margin-top: -28px;
+}
+.cart-btn {
+  @include setButtonStyle($airbean-brown, $airbean-white, $heading-font);
+  padding: 0.7rem 2rem 0.7rem;
+}
