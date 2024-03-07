@@ -1,5 +1,6 @@
 import "./status.scss";
 import StatusDrone from "../assets/status-drone.png";
+import { Link } from "react-router-dom";
 const Status = () => {
   return (
     <article className=" status-wrapper">
@@ -13,7 +14,9 @@ const Status = () => {
           <span>13</span> minuter
         </p>
       </section>
-      <button className="status-btn">Ok, cool!</button>
+      <Link to="/">
+        <button className="status-btn">Ok, cool!</button>
+      </Link>
     </article>
   );
 };

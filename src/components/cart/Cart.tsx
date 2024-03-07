@@ -1,7 +1,8 @@
 import "./cart.scss";
+import { Link } from "react-router-dom";
+import { useRef } from "react";
 import CartIcon from "../../assets/cart.svg";
 import TagUp from "../../assets/tag-up.svg";
-import { useRef } from "react";
 import Dots from "../../assets/dots.svg";
 import ArrowUp from "../../assets/arrow-up.svg";
 import ArrowDown from "../../assets/arrow-down.svg";
@@ -63,7 +64,9 @@ const Cart = () => {
             <h2 className="cart-total-heading">300 kr</h2>
             <p className="small-info-text">inkl moms + drönarleverans</p>
           </section>
-          <button className="cart-btn">Take my money!</button>
+          <Link to="/status">
+            <button className="cart-btn">Take my money!</button>
+          </Link>
         </article>
       </dialog>
     </div>
