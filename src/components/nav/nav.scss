@@ -1,10 +1,43 @@
 @use "../../sass/" as *;
 
 .nav-wrapper {
+  @include setDisplayFlex();
+  min-height: 700px;
+}
+.nav-overlay {
+  padding: 0;
+  margin-top: 0;
+  width: 375px;
   @include setColorAndFont(
     $airbean-brown,
     $airbean-white,
     $heading-font,
     $text-font
   );
+  border: 1px solid $airbean-brown;
+  text-align: center;
+  & h2 {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+  & p {
+    color: rgba(255, 255, 255, 0.2);
+  }
+  & a {
+    color: $airbean-white;
+  }
+}
+.exit {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  left: 1rem;
+  top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $airbean-white;
+  width: 3rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
 }

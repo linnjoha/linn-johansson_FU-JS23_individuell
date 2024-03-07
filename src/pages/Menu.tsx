@@ -26,6 +26,9 @@ const Menu = () => {
       <article className="menu">
         <h1>Meny</h1>
         {itemContainer}
+        {itemContainer}
+        {itemContainer}
+        {itemContainer}
       </article>
       <Footer />
     </div>
