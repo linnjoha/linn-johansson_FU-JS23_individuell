@@ -6,33 +6,43 @@ import TagUp from "../../assets/tag-up.svg";
 import Dots from "../../assets/dots.svg";
 import ArrowUp from "../../assets/arrow-up.svg";
 import ArrowDown from "../../assets/arrow-down.svg";
+import { useCartStore } from "../../store/cart";
+import { Beans } from "../../store/Beans";
 const Cart = () => {
   const cartRef = useRef<HTMLDialogElement>(null);
-  const cartItem = (
+  const {
+    cart,
+    add,
+    remove,
+    totalQnty,
+    sumOfProducts,
+    sumOfProduct: sumOfproduct,
+  } = useCartStore();
+  const cartItem = (item: Beans) => (
     <section className="cartitem-container-wrapper">
       <section className="cartitem-info-wrapper">
         <h2>
-          Bryggkaffe
+          {item.title}
           <img src={`${Dots}`} alt="" />
         </h2>
-        <p className="small-info-text __sum">50kr</p>
+        <p className="small-info-text __sum">{sumOfproduct(item)} kr</p>
       </section>
       <div className="change-cart-qnty">
-        <img src={`${ArrowUp}`} alt="" />
-        <p className="small-info-text qnty">1</p>
-        <img src={`${ArrowDown}`} alt="" />
+        <img onClick={() => add(item)} src={`${ArrowUp}`} alt="" />
+        <p className="small-info-text qnty">{item.qnty}</p>
+        <img onClick={() => remove(item)} src={`${ArrowDown}`} alt="" />
       </div>
     </section>
   );
-
+  const cartItems = cart.map(cartItem);
   const toggleDialog = () => {
-    if (cartRef.current && cartRef.current) {
+    if (cartRef.current) {
       if (cartRef.current.open) {
         cartRef.current.close();
       } else {
-        cartRef.current && cartRef.current.showModal();
+        cartRef.current.showModal();
       }
-    } else console.log("hello");
+    }
   };
 
   return (
@@ -41,6 +51,7 @@ const Cart = () => {
         onClick={(e) => toggleDialog()}
         className="nav-img-wrapper __cart"
       >
+        <div className="cart-sum __absolute">{totalQnty()}</div>
         <img src={`${CartIcon}`} alt="navicon" />
       </picture>
       <dialog ref={cartRef} className="cart-dialog">
@@ -48,20 +59,19 @@ const Cart = () => {
           onClick={(e) => toggleDialog()}
           className="nav-img-wrapper __cart"
         >
+          {" "}
+          <div className="cart-sum">{totalQnty()}</div>
           <img src={`${CartIcon}`} alt="navicon" />
         </picture>
         <img className="tag-up" src={`${TagUp}`} alt="" />
         <article className="cart-wrapper">
           <h1 className="cart-heading">Din Beställning</h1>
-          {cartItem}
-          {cartItem}
-          {cartItem}
-          {cartItem}
+          {cartItems}
           <section className="cart-total">
             <h2 className="cart-total-heading">
               Total <img src={`${Dots}`} alt="" />
             </h2>
-            <h2 className="cart-total-heading">300 kr</h2>
+            <h2 className="cart-total-heading">{sumOfProducts()} kr</h2>
             <p className="small-info-text">inkl moms + drönarleverans</p>
           </section>
           <Link to="/status">

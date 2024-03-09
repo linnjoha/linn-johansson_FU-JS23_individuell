@@ -10,7 +10,6 @@
   margin: 0 auto;
 }
 .menu {
-  text-align: center;
   @include setDisplayFlex();
   gap: 2rem;
   padding: 1.5rem;
@@ -23,6 +22,9 @@
     margin: 0;
     font-size: 1.3rem;
   }
+}
+.dots {
+  max-width: 100%;
 }
 .item-info-wrapper {
   display: flex;

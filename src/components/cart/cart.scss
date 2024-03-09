@@ -13,6 +13,21 @@ dialog::backdrop {
     transform: translateY(-91px) translateX(250px);
   }
 }
+.cart-sum {
+  background-color: $airbean-orange;
+  font-family: $text-font;
+  color: $airbean-white;
+  height: 1.2rem;
+  aspect-ratio: 1/1;
+  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  position: fixed;
+  transform: translateX(100%) translateY(-120%);
+  &.__absolute {
+    position: absolute;
+  }
+}
 .cart-wrapper {
   @include setColorAndFont(
     $airbean-white,
