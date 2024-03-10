@@ -53,30 +53,43 @@ dialog::backdrop {
 .cartitem-container-wrapper {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+
+  & h2 {
+    text-wrap: nowrap;
+    margin: 0;
+  }
 }
 
 .cartitem-info-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  width: 250px;
+  justify-content: center;
+  margin-left: 1rem;
+  & .__total {
+    width: 300px;
+  }
 }
 
-.cart-total {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
 .small-info-text {
   font-size: 12px;
   margin: 0;
 }
+.dots {
+  border-bottom: 2px dotted rgba(0, 0, 0, 0.2);
+  width: -webkit-fill-available;
+  align-self: flex-end;
+}
 .__sum {
-  align-self: baseline;
+  margin-left: 1rem;
 }
 .qnty {
   margin-bottom: -5px;
 }
 .change-cart-qnty {
   margin: 0;
+  text-align: center;
 }

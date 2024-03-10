@@ -17,18 +17,32 @@
 }
 .item-container-wrapper {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+
   & h2 {
     margin: 0;
     font-size: 1.3rem;
+    text-wrap: nowrap;
+  }
+  & .item-info {
+    letter-spacing: normal;
+    font-size: 0.8rem;
+    margin-left: 2.5rem;
   }
 }
 .dots {
-  max-width: 100%;
+  border-bottom: 2px dotted rgba(0, 0, 0, 0.2);
+  width: -webkit-fill-available;
+  align-self: flex-end;
 }
 .item-info-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  width: 250px;
+  justify-content: center;
+  margin-left: 1rem;
 }
 
 .add {
@@ -40,10 +54,5 @@
   border-radius: 50%;
   color: $airbean-white;
   background-color: $airbean-brown;
-}
-
-.item-info {
-  letter-spacing: normal;
-  font-size: 0.8rem;
-  margin: 0;
+  cursor: pointer;
 }

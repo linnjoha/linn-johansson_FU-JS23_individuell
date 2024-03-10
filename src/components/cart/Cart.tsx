@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import CartIcon from "../../assets/cart.svg";
 import TagUp from "../../assets/tag-up.svg";
-import Dots from "../../assets/dots.svg";
 import ArrowUp from "../../assets/arrow-up.svg";
 import ArrowDown from "../../assets/arrow-down.svg";
 import { useCartStore } from "../../store/cart";
@@ -21,17 +20,15 @@ const Cart = () => {
   const cartItem = (item: Beans) => (
     <section className="cartitem-container-wrapper">
       <section className="cartitem-info-wrapper">
-        <h2>
-          {item.title}
-          <img src={`${Dots}`} alt="" />
-        </h2>
-        <p className="small-info-text __sum">{sumOfproduct(item)} kr</p>
+        <h2>{item.title}</h2>
+        <span className="dots"></span>
       </section>
       <div className="change-cart-qnty">
         <img onClick={() => add(item)} src={`${ArrowUp}`} alt="" />
         <p className="small-info-text qnty">{item.qnty}</p>
         <img onClick={() => remove(item)} src={`${ArrowDown}`} alt="" />
       </div>
+      <p className="small-info-text __sum">{sumOfproduct(item)} kr</p>
     </section>
   );
   const cartItems = cart.map(cartItem);
@@ -67,12 +64,13 @@ const Cart = () => {
         <article className="cart-wrapper">
           <h1 className="cart-heading">Din Beställning</h1>
           {cartItems}
-          <section className="cart-total">
-            <h2 className="cart-total-heading">
-              Total <img src={`${Dots}`} alt="" />
-            </h2>
-            <h2 className="cart-total-heading">{sumOfProducts()} kr</h2>
-            <p className="small-info-text">inkl moms + drönarleverans</p>
+          <section className="cartitem-container-wrapper">
+            <section className="cartitem-info-wrapper __total">
+              <h2 className="cart-total-heading">Total</h2>
+              <span className="dots"></span>
+              <h2 className="cart-total-heading">{sumOfProducts()} kr</h2>
+            </section>
+            <p className="small-info-text __sum">inkl moms + drönarleverans</p>
           </section>
           <Link to="/status">
             <button className="cart-btn">Take my money!</button>

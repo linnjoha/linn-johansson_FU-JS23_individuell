@@ -1,7 +1,6 @@
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import "./menu.scss";
-import Dots from "../assets/dots.svg";
 import Add from "../assets/add.svg";
 import { useEffect, useState } from "react";
 import { Beans } from "../store/Beans";
@@ -9,7 +8,7 @@ import { useCartStore } from "../store/cart";
 
 const Menu = () => {
   const { add } = useCartStore();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Beans[]>([]);
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
@@ -17,7 +16,8 @@ const Menu = () => {
           `https://airbean-api-xjlcn.ondigitalocean.app/api/beans`
         );
         const json = await res.json();
-        setData(json.menu);
+        const coffeMenu: Beans[] = json.menu;
+        setData(coffeMenu.filter((item) => item.id.startsWith("coffee")));
         console.log(json);
       } catch (err) {
         console.error(err);
@@ -33,11 +33,9 @@ const Menu = () => {
         <img src={`${Add}`} alt="" />
       </div>
       <section className="item-info-wrapper">
-        <h2>
-          {item.title}
-          <img className="dots" src={`${Dots}`} alt="" />
-        </h2>
-        <h2>{item.price} kr</h2>
+        <h2>{item.title} </h2>
+        <span className="dots"></span>
+        <h2> {item.price} kr</h2>
       </section>
       <p className="item-info">{item.desc}</p>
     </section>
