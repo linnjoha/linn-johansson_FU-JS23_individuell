@@ -18,19 +18,19 @@ const Nav = () => {
           <div onClick={() => navOverlay.current?.close()} className="exit">
             <img src={`${Exit}`} alt="" />
           </div>
-          <Link to="/menu">
+          <Link onClick={() => navOverlay.current?.close()} to="/menu">
             <h2>Meny</h2>
             <p>_____</p>
           </Link>
-          <Link to="/about">
+          <Link onClick={() => navOverlay.current?.close()} to="/about">
             <h2>Vårt kaffe</h2>
             <p>_____</p>
           </Link>
-          <Link to="/profile">
+          <Link onClick={() => navOverlay.current?.close()} to="/profile">
             <h2>Min Profil</h2>
             <p>_____</p>
           </Link>
-          <Link to="/status">
+          <Link onClick={() => navOverlay.current?.close()} to="/status">
             <h2>Orderstatus</h2>
           </Link>
         </article>

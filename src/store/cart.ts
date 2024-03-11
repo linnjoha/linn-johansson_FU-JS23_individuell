@@ -8,6 +8,7 @@ interface CartState {
   totalQnty: () => number;
   sumOfProduct: (obj: Beans) => number;
   sumOfProducts: () => number;
+  clearCart: () => void;
 }
 const addToCart = (cart: Beans[], obj?: Beans) => {
   console.log(cart);
@@ -66,5 +67,9 @@ export const useCartStore = create<CartState>()((set, get) => ({
   sumOfProducts: () => {
     const { cart } = get();
     return cart.reduce((acc, cur) => (acc += cur.price * Number(cur.qnty)), 0);
+  },
+  clearCart: () => {
+    window.sessionStorage.removeItem("key");
+    set({ cart: [] });
   },
 }));

@@ -6,7 +6,13 @@ import TagUp from "../../assets/tag-up.svg";
 import ArrowUp from "../../assets/arrow-up.svg";
 import ArrowDown from "../../assets/arrow-down.svg";
 import { useCartStore } from "../../store/cart";
+import { useOrderState } from "../../store/order";
 import { Beans } from "../../store/Beans";
+interface OrderResp {
+  eta: number;
+  orderNr: string;
+}
+
 const Cart = () => {
   const cartRef = useRef<HTMLDialogElement>(null);
   const {
@@ -15,8 +21,12 @@ const Cart = () => {
     remove,
     totalQnty,
     sumOfProducts,
-    sumOfProduct: sumOfproduct,
+    sumOfProduct,
+    clearCart,
   } = useCartStore();
+  // const [orderData, setOrderData] = useState<OrderResp>();
+  const { order, addOrder } = useOrderState();
+
   const cartItem = (item: Beans) => (
     <section className="cartitem-container-wrapper">
       <section className="cartitem-info-wrapper">
@@ -28,7 +38,7 @@ const Cart = () => {
         <p className="small-info-text qnty">{item.qnty}</p>
         <img onClick={() => remove(item)} src={`${ArrowDown}`} alt="" />
       </div>
-      <p className="small-info-text __sum">{sumOfproduct(item)} kr</p>
+      <p className="small-info-text __sum">{sumOfProduct(item)} kr</p>
     </section>
   );
   const cartItems = cart.map(cartItem);
@@ -39,6 +49,50 @@ const Cart = () => {
       } else {
         cartRef.current.showModal();
       }
+    }
+  };
+
+  const sendOrder = async () => {
+    try {
+      const sendOrderList = cart
+        .map((item) => {
+          const objs = [];
+          console.log(item.qnty);
+          for (let i = 0; i < Number(item.qnty); i++) {
+            const obj = {
+              name: item.title,
+              price: item.price,
+            };
+            objs.push(obj);
+          }
+          return objs;
+        })
+        .flat();
+      console.log(sendOrderList);
+      const res = await fetch(
+        `https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
+          },
+
+          method: "POST",
+          body: JSON.stringify({
+            details: {
+              order: sendOrderList,
+            },
+          }),
+        }
+      );
+      const json: OrderResp = await res.json();
+      console.log(json);
+      addOrder(json);
+      console.log(order);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      clearCart();
     }
   };
 
@@ -73,7 +127,9 @@ const Cart = () => {
             <p className="small-info-text __sum">inkl moms + drönarleverans</p>
           </section>
           <Link to="/status">
-            <button className="cart-btn">Take my money!</button>
+            <button onClick={() => sendOrder()} className="cart-btn">
+              Take my money!
+            </button>
           </Link>
         </article>
       </dialog>
