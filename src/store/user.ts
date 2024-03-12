@@ -1,23 +1,38 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 
+export interface OrderHistory {
+  total: number;
+  orderNr: string;
+  orderDate: string;
+}
 export interface User {
   name: string;
   email: string;
-  orderHistory: [];
+  orderHistory: OrderHistory[];
+  totalCost: number;
 }
-// interface LoginState {
-//   resp: LoginResp | null;
-//   loginUser: () => void;
-//   signUpUser: () => void;
-//   getOrderHistory: () => any[];
-// }
+interface UserState {
+  user: User;
+  addOrderHistory: (obj: OrderHistory) => void;
+}
 
-// export const useOrderState = create<LoginState>()((set, get) => ({
-//   resp: null,
-//   loginUser: () => {},
-//   signUpUser: () => {},
-//   getOrderHistory: () => {
-//     return [];
-//   },
-// }));
+export const useUserStore = create<UserState>()((set, get) => ({
+  user: {
+    name: "",
+    email: "",
+    orderHistory: [
+      // {
+      //   total:,
+      //   orderNr: "string",
+      //   orderDate: "string",
+      // },
+    ],
+    totalCost: 0,
+  },
+  addOrderHistory: (obj: OrderHistory) => {
+    const { user } = get();
+    user.orderHistory.push(obj);
+    user.totalCost = user.totalCost + obj.total;
+    set({ user });
+  },
+}));

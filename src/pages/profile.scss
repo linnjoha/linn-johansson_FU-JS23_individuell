@@ -96,7 +96,7 @@ p {
   & p {
     line-height: 1.5rem;
   }
-  & form {
+  & .input-container {
     @include setDisplayFlex();
     text-align: left;
     padding: 0.8rem;

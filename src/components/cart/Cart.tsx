@@ -6,7 +6,7 @@ import TagUp from "../../assets/tag-up.svg";
 import ArrowUp from "../../assets/arrow-up.svg";
 import ArrowDown from "../../assets/arrow-down.svg";
 import { useCartStore } from "../../store/cart";
-import { useOrderState } from "../../store/order";
+import { useOrderStore } from "../../store/order";
 import { Beans } from "../../store/Beans";
 interface OrderResp {
   eta: number;
@@ -25,10 +25,10 @@ const Cart = () => {
     clearCart,
   } = useCartStore();
   // const [orderData, setOrderData] = useState<OrderResp>();
-  const { order, addOrder } = useOrderState();
+  const { order, addOrder } = useOrderStore();
 
   const cartItem = (item: Beans) => (
-    <section className="cartitem-container-wrapper">
+    <section key={item.id} className="cartitem-container-wrapper">
       <section className="cartitem-info-wrapper">
         <h2>{item.title}</h2>
         <span className="dots"></span>

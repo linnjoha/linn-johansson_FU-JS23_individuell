@@ -28,7 +28,7 @@ const Menu = () => {
   console.log(data);
 
   const itemContainer = (item: Beans) => (
-    <section className="item-container-wrapper">
+    <section key={item.id} className="item-container-wrapper">
       <div onClick={() => add(item)} className="add">
         <img src={`${Add}`} alt="" />
       </div>

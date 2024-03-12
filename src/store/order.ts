@@ -12,7 +12,7 @@ interface OrderState {
   addOrder: (obj: OrderResp) => void;
 }
 
-export const useOrderState = create<OrderState>()((set, get) => ({
+export const useOrderStore = create<OrderState>()((set, get) => ({
   order: [],
   addOrder: (obj: OrderResp) => {
     const { order } = get();
