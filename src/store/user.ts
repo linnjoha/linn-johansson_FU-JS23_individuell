@@ -15,8 +15,8 @@ export interface User {
 interface UserState {
   user: User;
   setUserDataToStorage: (name: string, email: string) => void;
-  addOrderHistory: (obj: OrderHistory) => void;
   addTokentoStorage: (token: string) => void;
+  addOrderHistory: (arr: OrderHistory[]) => void;
 }
 
 const getvalueFromStorage = () => {
@@ -43,23 +43,23 @@ export const useUserStore = create<UserState>()((set, get) => ({
     const storedUserData = getvalueFromStorage();
     storedUserData.name = name;
     storedUserData.email = email;
-    set({ user: storedUserData });
     window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
-  },
-
-  addOrderHistory: (obj: OrderHistory) => {
-    const storedUserData = getvalueFromStorage();
-    storedUserData.orderHistory.push(obj);
-    storedUserData.totalCost = storedUserData.totalCost + obj.total;
-    set({ user: storedUserData });
-    window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
+    set({ user: getvalueFromStorage() });
   },
   addTokentoStorage: (token: string) => {
     const storedUserData = getvalueFromStorage();
+
     const { user } = get();
     storedUserData.token = token;
     // storedUserData.totalCost = storedUserData.totalCost + obj.total;
-    set({ user: storedUserData });
     window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
+    set({ user: getvalueFromStorage() });
+  },
+  addOrderHistory: (orderHistory: OrderHistory[]) => {
+    const storedUserData = getvalueFromStorage();
+    storedUserData.orderHistory = orderHistory;
+    // storedUserData.totalCost = storedUserData.totalCost + obj.total;
+    window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
+    set({ user: getvalueFromStorage() });
   },
 }));

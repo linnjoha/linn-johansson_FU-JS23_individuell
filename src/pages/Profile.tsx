@@ -16,6 +16,7 @@ const Profile = () => {
   const loginName = useRef<HTMLInputElement>(null);
   const loginPassword = useRef<HTMLInputElement>(null);
   const [userName, setUserName] = useState<string | undefined>();
+  const [orderList, setOrderList] = useState<any>();
   const loginUser = async () => {
     try {
       const res = await fetch(
@@ -39,9 +40,8 @@ const Profile = () => {
         console.log(user);
         // window.sessionStorage.setItem("token", json.token);
 
-        getOrderHistory().then(() => {
-          setOpen(false);
-        });
+        setOpen(false);
+        getOrderHistory().then(() => {});
       }
       console.log(json);
     } catch (err) {
@@ -93,12 +93,12 @@ const Profile = () => {
       const json = await res.json();
       const orderHistoryList = json.orderHistory;
       console.log("här smäller det", orderHistoryList);
-      orderHistoryList.forEach((order: OrderHistory) => {
-        addOrderHistory(order);
-        console.log(user);
-      });
-      console.log(json);
-      console.log(user.orderHistory);
+      // orderHistoryList.forEach((order: OrderHistory) => {
+      //   addOrderHistory(order);
+      //   console.log(user);
+      // });
+      addOrderHistory(orderHistoryList);
+      setOrderList(user.orderHistory?.map(order) ?? []);
     } catch (err) {
       console.error(err);
     }
@@ -116,9 +116,8 @@ const Profile = () => {
     </div>
   );
 
-  const orderList = user.orderHistory?.map(order) ?? [];
   useEffect(() => {
-    if (window.sessionStorage.getItem("token")) {
+    if (user.token) {
       setOpen(false);
     }
   });
@@ -198,6 +197,7 @@ const Profile = () => {
           </section>
         </article>
       </dialog>
+
       <article className="profile-status-wrapper">
         <div className="profileimg-container">
           <img
