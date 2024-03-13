@@ -3,6 +3,7 @@
 .nav-wrapper {
   @include setDisplayFlex();
   min-height: 700px;
+  overflow: hidden;
 }
 .nav-overlay {
   padding: 0;

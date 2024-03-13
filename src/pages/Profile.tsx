@@ -15,8 +15,7 @@ const Profile = () => {
   const registerPassword = useRef<HTMLInputElement>(null);
   const loginName = useRef<HTMLInputElement>(null);
   const loginPassword = useRef<HTMLInputElement>(null);
-  const [userName, setUserName] = useState<string | undefined>();
-  const [orderList, setOrderList] = useState<any>();
+
   const loginUser = async () => {
     try {
       const res = await fetch(
@@ -35,14 +34,13 @@ const Profile = () => {
       if (loginName.current?.value) {
         setUserDataToStorage(loginName.current?.value, "");
       }
-      addTokentoStorage(json.token);
       if (json.success) {
         console.log(user);
+        addTokentoStorage(json.token);
         // window.sessionStorage.setItem("token", json.token);
-
         setOpen(false);
-        getOrderHistory().then(() => {});
       }
+      getOrderHistory();
       console.log(json);
     } catch (err) {
       console.error(err);
@@ -78,31 +76,34 @@ const Profile = () => {
     }
   };
   const getOrderHistory = async () => {
+    const userFromStorage: any = window.sessionStorage.getItem("user");
+    const parsedStorage = JSON.parse(userFromStorage);
     try {
-      // const token = window.sessionStorage.getItem("token");
-      // console.log(token);
       const res = await fetch(
         `https://airbean-api-xjlcn.ondigitalocean.app/api/user/history`,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user.token}`,
+            // Authorization: `Bearer ${user.token}`,
+            Authorization: `Bearer ${parsedStorage.token}`,
           },
         }
       );
       const json = await res.json();
       const orderHistoryList = json.orderHistory;
       console.log("här smäller det", orderHistoryList);
-      // orderHistoryList.forEach((order: OrderHistory) => {
-      //   addOrderHistory(order);
-      //   console.log(user);
-      // });
       addOrderHistory(orderHistoryList);
-      setOrderList(user.orderHistory?.map(order) ?? []);
+      console.log(orderHistoryList);
+      // if (orderHistoryList) {
+      //   setOrderList(user.orderHistory?.map(order) ?? []);
+      // }
     } catch (err) {
       console.error(err);
     }
   };
+  useEffect(() => {
+    getOrderHistory();
+  });
   const order = (order: OrderHistory) => (
     <div key={order?.orderNr} className="order-wrapper">
       <section className="order-container">
@@ -115,7 +116,7 @@ const Profile = () => {
       </section>
     </div>
   );
-
+  const orders = user.orderHistory.map(order);
   useEffect(() => {
     if (user.token) {
       setOpen(false);
@@ -211,7 +212,7 @@ const Profile = () => {
       </article>
       <section className="order-section">
         <h2>Orderhistorik</h2>
-        {orderList}
+        {orders}
 
         <section className="total-container">
           <p>Totalt spenderat</p>

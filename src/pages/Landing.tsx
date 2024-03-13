@@ -3,8 +3,11 @@ import Logo from "../assets/logo.svg";
 import LeafL from "../assets/leafs-left.png";
 import LeafR from "../assets/leafs-right.png";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 const Landing = () => {
-  window.sessionStorage.removeItem("user");
+  // useEffect(()=>{
+  // window.sessionStorage.removeItem("user"),
+  // window.location.reload()});
   return (
     <Link to="/menu">
       <div className="landing-wrapper">

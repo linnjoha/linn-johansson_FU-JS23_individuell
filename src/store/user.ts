@@ -48,7 +48,6 @@ export const useUserStore = create<UserState>()((set, get) => ({
   },
   addTokentoStorage: (token: string) => {
     const storedUserData = getvalueFromStorage();
-
     const { user } = get();
     storedUserData.token = token;
     // storedUserData.totalCost = storedUserData.totalCost + obj.total;
@@ -58,7 +57,10 @@ export const useUserStore = create<UserState>()((set, get) => ({
   addOrderHistory: (orderHistory: OrderHistory[]) => {
     const storedUserData = getvalueFromStorage();
     storedUserData.orderHistory = orderHistory;
-    // storedUserData.totalCost = storedUserData.totalCost + obj.total;
+    storedUserData.totalCost = orderHistory.reduce(
+      (acc, curr) => (acc += curr.total),
+      0
+    );
     window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
     set({ user: getvalueFromStorage() });
   },
