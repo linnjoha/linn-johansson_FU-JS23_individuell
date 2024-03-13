@@ -39,8 +39,9 @@ const Profile = () => {
         console.log(user);
         // window.sessionStorage.setItem("token", json.token);
 
-        setOpen(false);
-        getOrderHistory();
+        getOrderHistory().then(() => {
+          setOpen(false);
+        });
       }
       console.log(json);
     } catch (err) {
@@ -171,6 +172,7 @@ const Profile = () => {
             <label>
               Epost
               <input
+                required
                 ref={registerEmail}
                 type="email"
                 placeholder="sixten.kaffelover@zocom.se"

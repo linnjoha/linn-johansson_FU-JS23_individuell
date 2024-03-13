@@ -4,7 +4,7 @@ import LeafL from "../assets/leafs-left.png";
 import LeafR from "../assets/leafs-right.png";
 import { Link } from "react-router-dom";
 const Landing = () => {
-  // window.sessionStorage.removeItem("user");
+  window.sessionStorage.removeItem("user");
   return (
     <Link to="/menu">
       <div className="landing-wrapper">
