@@ -2,36 +2,10 @@ import "./status.scss";
 import StatusDrone from "../assets/status-drone.png";
 import { Link } from "react-router-dom";
 import { useOrderStore } from "../store/order";
-import { useEffect, useState } from "react";
 
 const Status = () => {
   const { order, addOrder } = useOrderStore();
-  const [orderNr, setOrderNr] = useState<string>();
-  // useEffect(() => {
-  //   if (order[0]?.orderNr) {
-  //     const orderData = async () => {
-  //       console.log(
-  //         `https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/status/${order[0].orderNr}`
-  //       );
-  //       try {
-  //         const res = await fetch(
-  //           `https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order/status/${order[0].orderNr}`,
-  //           {
-  //             headers: {
-  //               "Content-Type": "application/json",
-  //             },
-  //           }
-  //         );
-  //         const json = await res.json();
 
-  //         console.log(json);
-  //       } catch (err) {
-  //         console.error(err);
-  //       }
-  //     };
-  //     orderData();
-  //   }
-  // });
   if (order[0]?.orderNr)
     return (
       <article className=" status-wrapper">
@@ -50,14 +24,15 @@ const Status = () => {
         </Link>
       </article>
     );
+  // vad som visas när ingen order finns
   else
     return (
-      <article className=" status-wrapper">
+      <article className=" status-wrapper __no-order">
         <p className="status-order">Ingen order aktiv</p>
         <img src={`${StatusDrone}`} alt="" />
 
-        <Link to="/">
-          <button className="status-btn">Ok, cool!</button>
+        <Link to="/menu">
+          <button className="status-btn">Not cool!</button>
         </Link>
       </article>
     );

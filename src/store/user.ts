@@ -8,31 +8,58 @@ export interface OrderHistory {
 export interface User {
   name: string;
   email: string;
+  token: string;
   orderHistory: OrderHistory[];
   totalCost: number;
 }
 interface UserState {
   user: User;
+  setUserDataToStorage: (name: string, email: string) => void;
   addOrderHistory: (obj: OrderHistory) => void;
+  addTokentoStorage: (token: string) => void;
 }
 
+const getvalueFromStorage = () => {
+  const storedUserData = window.sessionStorage.getItem("user");
+  if (!storedUserData)
+    return {
+      name: "",
+      email: "",
+      token: "",
+      orderHistory: [],
+      totalCost: 0,
+    };
+  console.log(storedUserData);
+  const parsedUserData = JSON.parse(storedUserData as any);
+  console.log(JSON.parse(storedUserData as any));
+  return parsedUserData;
+};
+
 export const useUserStore = create<UserState>()((set, get) => ({
-  user: {
-    name: "",
-    email: "",
-    orderHistory: [
-      // {
-      //   total:,
-      //   orderNr: "string",
-      //   orderDate: "string",
-      // },
-    ],
-    totalCost: 0,
-  },
-  addOrderHistory: (obj: OrderHistory) => {
+  user: getvalueFromStorage(),
+
+  setUserDataToStorage: (name: string, email: string) => {
     const { user } = get();
-    user.orderHistory.push(obj);
-    user.totalCost = user.totalCost + obj.total;
-    set({ user });
+    const storedUserData = getvalueFromStorage();
+    storedUserData.name = name;
+    storedUserData.email = email;
+    set({ user: storedUserData });
+    window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
+  },
+
+  addOrderHistory: (obj: OrderHistory) => {
+    const storedUserData = getvalueFromStorage();
+    storedUserData.orderHistory.push(obj);
+    storedUserData.totalCost = storedUserData.totalCost + obj.total;
+    set({ user: storedUserData });
+    window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
+  },
+  addTokentoStorage: (token: string) => {
+    const storedUserData = getvalueFromStorage();
+    const { user } = get();
+    storedUserData.token = token;
+    // storedUserData.totalCost = storedUserData.totalCost + obj.total;
+    set({ user: storedUserData });
+    window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
   },
 }));

@@ -8,6 +8,7 @@ import ArrowDown from "../../assets/arrow-down.svg";
 import { useCartStore } from "../../store/cart";
 import { useOrderStore } from "../../store/order";
 import { Beans } from "../../store/Beans";
+import { useUserStore } from "../../store/user";
 interface OrderResp {
   eta: number;
   orderNr: string;
@@ -26,6 +27,7 @@ const Cart = () => {
   } = useCartStore();
   // const [orderData, setOrderData] = useState<OrderResp>();
   const { order, addOrder } = useOrderStore();
+  const { user } = useUserStore();
 
   const cartItem = (item: Beans) => (
     <section key={item.id} className="cartitem-container-wrapper">
@@ -69,13 +71,16 @@ const Cart = () => {
         })
         .flat();
       console.log(sendOrderList);
+      const header: any = {
+        "Content-Type": "application/json",
+      };
+      if (user.token) {
+        header.Authorization = `Bearer ${user.token}`;
+      }
       const res = await fetch(
         `https://airbean-api-xjlcn.ondigitalocean.app/api/beans/order`,
         {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
-          },
+          headers: header,
 
           method: "POST",
           body: JSON.stringify({

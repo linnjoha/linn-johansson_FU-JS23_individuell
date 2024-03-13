@@ -1,8 +1,4 @@
 import { create } from "zustand";
-// import { Beans } from "./Beans";
-// import { useCartStore } from "./cart";
-
-// const { cart } = useCartStore();
 export interface OrderResp {
   eta: number;
   orderNr: string;

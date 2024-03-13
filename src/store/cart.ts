@@ -47,8 +47,10 @@ export const useCartStore = create<CartState>()((set, get) => ({
     const { cart } = get();
     if (obj && cart) {
       const exists = cart.find((p) => p.id === obj.id);
+
       if (exists && exists.qnty != 0) {
         exists.qnty = Number(exists.qnty) - 1;
+        set({ cart });
       } else {
         set({ cart: cart.filter((item) => item !== exists) });
       }

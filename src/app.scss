@@ -1,6 +1,6 @@
 @use "./sass/" as *;
 body {
-  width: 375px;
+  // width: 375px;
   margin: 0 auto;
   @include setDisplayFlex();
 }

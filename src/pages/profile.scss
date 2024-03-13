@@ -3,8 +3,9 @@ p {
   margin: 0;
 }
 .profile-wrapper {
-  min-height: 700px;
-  width: 375px;
+  min-height: 100vh;
+  height: 100%;
+  width: 100vw;
   @include setColorAndFont(
     $airbean-brown,
     $airbean-white,
@@ -14,6 +15,7 @@ p {
 }
 .profile-status-wrapper {
   @include setDisplayFlex();
+
   padding: 1rem;
   & h1 {
     font-size: 1.5rem;
@@ -74,6 +76,10 @@ p {
   padding: 0;
   margin: 0 auto;
   border-radius: 3px;
+  margin-top: -40px;
+
+  text-align: center;
+  max-width: 340px;
 }
 .create-profile-wrapper {
   @include setColorAndFont(
@@ -82,16 +88,16 @@ p {
     $heading-font,
     $text-font
   );
-  margin-top: -40px;
-  padding-top: 2rem;
-  text-align: center;
-  max-width: 340px;
+  overflow-y: scroll;
+  height: 530px;
   border-radius: 3px;
+  padding-top: 2rem;
   box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.55);
   // @include setDisplayFlex();
   & h1 {
     font-size: 2rem;
     margin: 0.5rem 0 0.5rem;
+    text-align: center;
   }
   & p {
     line-height: 1.5rem;

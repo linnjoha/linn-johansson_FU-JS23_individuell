@@ -14,6 +14,7 @@ dialog::backdrop {
   }
 }
 .cart-sum {
+  @include setDisplayFlex();
   background-color: $airbean-orange;
   font-family: $text-font;
   color: $airbean-white;

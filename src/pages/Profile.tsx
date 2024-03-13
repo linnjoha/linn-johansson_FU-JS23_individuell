@@ -8,11 +8,14 @@ import { OrderHistory } from "../store/user";
 
 const Profile = () => {
   const [open, setOpen] = useState(true);
-  const { user, addOrderHistory } = useUserStore();
-  const inputUser = useRef<HTMLInputElement>(null);
-  const inputEmail = useRef<HTMLInputElement>(null);
-  const inputPassword = useRef<HTMLInputElement>(null);
-
+  const { user, addOrderHistory, setUserDataToStorage, addTokentoStorage } =
+    useUserStore();
+  const registerName = useRef<HTMLInputElement>(null);
+  const registerEmail = useRef<HTMLInputElement>(null);
+  const registerPassword = useRef<HTMLInputElement>(null);
+  const loginName = useRef<HTMLInputElement>(null);
+  const loginPassword = useRef<HTMLInputElement>(null);
+  const [userName, setUserName] = useState<string | undefined>();
   const loginUser = async () => {
     try {
       const res = await fetch(
@@ -21,20 +24,23 @@ const Profile = () => {
           headers: { "Content-Type": "application/json" },
           method: "POST",
           body: JSON.stringify({
-            username: inputUser.current?.value,
-            password: inputPassword.current?.value,
+            username: loginName.current?.value,
+            password: loginPassword.current?.value,
           }),
         }
       );
       const json = await res.json();
+      // setUserName(loginName.current?.value);
+      if (loginName.current?.value) {
+        setUserDataToStorage(loginName.current?.value, "");
+      }
+      addTokentoStorage(json.token);
       if (json.success) {
-        window.sessionStorage.setItem("token", json.token);
-        user.name = String(inputUser.current?.value);
-        user.email = String(inputEmail.current?.value);
+        console.log(user);
+        // window.sessionStorage.setItem("token", json.token);
+
         setOpen(false);
         getOrderHistory();
-      } else {
-        signUpUser();
       }
       console.log(json);
     } catch (err) {
@@ -49,13 +55,22 @@ const Profile = () => {
           headers: { "Content-Type": "application/json" },
           method: "POST",
           body: JSON.stringify({
-            username: inputUser.current?.value,
-            password: inputPassword.current?.value,
+            username: registerName.current?.value,
+            password: registerPassword.current?.value,
           }),
         }
       );
       const json = await res.json();
-
+      if (json.success) {
+        if (registerName.current?.value && registerEmail.current?.value) {
+          setUserDataToStorage(
+            registerName.current.value,
+            registerEmail.current.value
+          );
+          registerName.current.value = "";
+          registerEmail.current.value = "";
+        }
+      }
       console.log(json);
     } catch (err) {
       console.error(err);
@@ -63,14 +78,14 @@ const Profile = () => {
   };
   const getOrderHistory = async () => {
     try {
-      const token = window.sessionStorage.getItem("token");
-      console.log(token);
+      // const token = window.sessionStorage.getItem("token");
+      // console.log(token);
       const res = await fetch(
         `https://airbean-api-xjlcn.ondigitalocean.app/api/user/history`,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
@@ -82,28 +97,30 @@ const Profile = () => {
         console.log(user);
       });
       console.log(json);
+      console.log(user.orderHistory);
     } catch (err) {
       console.error(err);
     }
   };
   const order = (order: OrderHistory) => (
-    <div key={order.orderNr} className="order-wrapper">
+    <div key={order?.orderNr} className="order-wrapper">
       <section className="order-container">
-        <p className="order-number">#{order.orderNr}</p>
-        <p className=" order-date">{order.orderDate}</p>
+        <p className="order-number">#{order?.orderNr}</p>
+        <p className=" order-date">{order?.orderDate}</p>
       </section>
       <section className="order-container sum">
         <p className="total-sum">total ordersumma</p>
-        <p className="total-sum">{order.total} kr</p>
+        <p className="total-sum">{order?.total} kr</p>
       </section>
     </div>
   );
-  const orderList = user.orderHistory.map(order);
-  // useEffect(() => {
-  //   if (window.sessionStorage.getItem("token")) {
-  //     setOpen(false);
-  //   }
-  // });
+
+  const orderList = user.orderHistory?.map(order) ?? [];
+  useEffect(() => {
+    if (window.sessionStorage.getItem("token")) {
+      setOpen(false);
+    }
+  });
   return (
     <article className="profile-wrapper">
       <Header />
@@ -118,11 +135,35 @@ const Profile = () => {
             orderhistorik.
           </p>
           <section className="input-container">
+            <h1>Logga in</h1>
             <label>
               Namn
               <input
                 required
-                ref={inputUser}
+                ref={loginName}
+                type="text"
+                placeholder="Sixten Kaffelövér"
+              />
+            </label>
+            <label>
+              Password
+              <input
+                required
+                ref={loginPassword}
+                type="password"
+                placeholder="*************"
+              />
+            </label>
+
+            <button onClick={() => loginUser()} className="profile-btn">
+              Brew me a cup!
+            </button>
+            <h1>Ingen konto? Registrera dig nu!</h1>
+            <label>
+              Namn
+              <input
+                required
+                ref={registerName}
                 type="text"
                 placeholder="Sixten Kaffelövér"
               />
@@ -130,7 +171,7 @@ const Profile = () => {
             <label>
               Epost
               <input
-                ref={inputEmail}
+                ref={registerEmail}
                 type="email"
                 placeholder="sixten.kaffelover@zocom.se"
               />
@@ -140,43 +181,19 @@ const Profile = () => {
               Password
               <input
                 required
-                ref={inputPassword}
+                ref={registerPassword}
                 type="password"
                 placeholder="*************"
               />
             </label>
-            {/* <h2>Logga in</h2>
-            <label>
-              Namn
-              <input
-                required
-                ref={inputUser}
-                type="text"
-                placeholder="Sixten Kaffelövér"
-              />
-            </label>
-            <label>
-              Epost
-              <input
-                ref={inputEmail}
-                type="email"
-                placeholder="sixten.kaffelover@zocom.se"
-              />
-            </label> */}
             <label>
               <input type="checkbox" />
               GDPR ok!
             </label>
-            {/* <Link to="/profile"> */}
-            <button
-              // type="submit"
-              onClick={() => loginUser()}
-              className="profile-btn"
-            >
-              Brew me a cup!
+            <button onClick={() => signUpUser()} className="profile-btn">
+              Sign me up!
             </button>
           </section>
-          {/* </Link> */}
         </article>
       </dialog>
       <article className="profile-status-wrapper">

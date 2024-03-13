@@ -7,13 +7,19 @@
     $heading-font,
     $text-font
   );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 0 auto;
+  width: 100vw;
+  min-height: 100vh;
 }
 .menu {
   @include setDisplayFlex();
+  margin: 0 auto;
   gap: 2rem;
-  padding: 1.5rem;
-  min-height: 300px;
+  padding: 0.5rem 1.5rem;
+  min-height: 600px;
 }
 .item-container-wrapper {
   display: flex;
