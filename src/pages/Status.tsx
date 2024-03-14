@@ -5,7 +5,7 @@ import { useOrderStore } from "../store/order";
 
 const Status = () => {
   const { order, addOrder } = useOrderStore();
-
+  // om order finns renderas status med eta och ordernummer
   if (order[0]?.orderNr)
     return (
       <article className=" status-wrapper">

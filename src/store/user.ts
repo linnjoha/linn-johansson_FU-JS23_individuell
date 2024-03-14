@@ -31,15 +31,14 @@ const getvalueFromStorage = () => {
     };
   console.log(storedUserData);
   const parsedUserData = JSON.parse(storedUserData as any);
-  console.log(JSON.parse(storedUserData as any));
+
   return parsedUserData;
 };
 
-export const useUserStore = create<UserState>()((set, get) => ({
+export const useUserStore = create<UserState>()((set) => ({
   user: getvalueFromStorage(),
 
   setUserDataToStorage: (name: string, email: string) => {
-    const { user } = get();
     const storedUserData = getvalueFromStorage();
     storedUserData.name = name;
     storedUserData.email = email;
@@ -48,9 +47,7 @@ export const useUserStore = create<UserState>()((set, get) => ({
   },
   addTokentoStorage: (token: string) => {
     const storedUserData = getvalueFromStorage();
-    const { user } = get();
     storedUserData.token = token;
-    // storedUserData.totalCost = storedUserData.totalCost + obj.total;
     window.sessionStorage.setItem("user", JSON.stringify(storedUserData));
     set({ user: getvalueFromStorage() });
   },

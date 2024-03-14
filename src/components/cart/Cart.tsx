@@ -9,10 +9,7 @@ import { useCartStore } from "../../store/cart";
 import { useOrderStore } from "../../store/order";
 import { Beans } from "../../store/Beans";
 import { useUserStore } from "../../store/user";
-interface OrderResp {
-  eta: number;
-  orderNr: string;
-}
+import { OrderResp } from "../../store/order";
 
 const Cart = () => {
   const cartRef = useRef<HTMLDialogElement>(null);
@@ -25,7 +22,7 @@ const Cart = () => {
     sumOfProduct,
     clearCart,
   } = useCartStore();
-  // const [orderData, setOrderData] = useState<OrderResp>();
+
   const { order, addOrder } = useOrderStore();
   const { user } = useUserStore();
 
@@ -44,6 +41,7 @@ const Cart = () => {
     </section>
   );
   const cartItems = cart.map(cartItem);
+
   const toggleDialog = () => {
     if (cartRef.current) {
       if (cartRef.current.open) {
@@ -74,6 +72,7 @@ const Cart = () => {
       const header: any = {
         "Content-Type": "application/json",
       };
+      //om token finns
       if (user.token) {
         header.Authorization = `Bearer ${user.token}`;
       }
@@ -91,12 +90,11 @@ const Cart = () => {
         }
       );
       const json: OrderResp = await res.json();
-      console.log(json);
       addOrder(json);
-      console.log(order);
     } catch (err) {
       console.error(err);
     } finally {
+      //tömmer cart så den är tom för nästa beställning
       clearCart();
     }
   };

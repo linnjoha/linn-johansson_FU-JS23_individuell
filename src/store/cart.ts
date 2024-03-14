@@ -11,7 +11,6 @@ interface CartState {
   clearCart: () => void;
 }
 const addToCart = (cart: Beans[], obj?: Beans) => {
-  console.log(cart);
   if (obj && cart) {
     const exists = cart.find((p) => p.id === obj.id);
     if (exists) {

@@ -7,15 +7,20 @@ import { useUserStore } from "../store/user";
 import { OrderHistory } from "../store/user";
 
 const Profile = () => {
+  //variabel för att stänga overlay
   const [open, setOpen] = useState(true);
+  //globala variblerna som används för att spara inloggad/signad användare
   const { user, addOrderHistory, setUserDataToStorage, addTokentoStorage } =
     useUserStore();
+
+  //referenser till inputs
   const registerName = useRef<HTMLInputElement>(null);
   const registerEmail = useRef<HTMLInputElement>(null);
   const registerPassword = useRef<HTMLInputElement>(null);
   const loginName = useRef<HTMLInputElement>(null);
   const loginPassword = useRef<HTMLInputElement>(null);
 
+  // anropet som görs när vi trycker på logga in button
   const loginUser = async () => {
     try {
       const res = await fetch(
@@ -30,22 +35,27 @@ const Profile = () => {
         }
       );
       const json = await res.json();
-      // setUserName(loginName.current?.value);
+
+      //sparar användarnamnet till blobal state och sessionstorage så vi kan rendera ut denna sedan
       if (loginName.current?.value) {
         setUserDataToStorage(loginName.current?.value, "");
       }
+
       if (json.success) {
         console.log(user);
+        //sparar vår token till global state, samt sessionstorage
         addTokentoStorage(json.token);
-        // window.sessionStorage.setItem("token", json.token);
+        // stänger ner overlay//dialog
         setOpen(false);
       }
+      //anropar metoden som hämtar vår orderhistorik
       getOrderHistory();
-      console.log(json);
     } catch (err) {
       console.error(err);
     }
   };
+
+  //metoden som körs när vi signar user
   const signUpUser = async () => {
     try {
       const res = await fetch(
@@ -62,10 +72,12 @@ const Profile = () => {
       const json = await res.json();
       if (json.success) {
         if (registerName.current?.value && registerEmail.current?.value) {
+          //sparar namn och email till globalstate samt session
           setUserDataToStorage(
             registerName.current.value,
             registerEmail.current.value
           );
+          //när det sparats, nollställs input till default
           registerName.current.value = "";
           registerEmail.current.value = "";
         }
@@ -76,6 +88,7 @@ const Profile = () => {
     }
   };
   const getOrderHistory = async () => {
+    //hämtar user från sessionstorage för att använda token till anrop
     const userFromStorage: any = window.sessionStorage.getItem("user");
     const parsedStorage = JSON.parse(userFromStorage);
     try {
@@ -84,23 +97,21 @@ const Profile = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${user.token}`,
             Authorization: `Bearer ${parsedStorage.token}`,
           },
         }
       );
       const json = await res.json();
       const orderHistoryList = json.orderHistory;
-      console.log("här smäller det", orderHistoryList);
+      console.log("orderhistory", orderHistoryList);
+      //sparar listan
       addOrderHistory(orderHistoryList);
       console.log(orderHistoryList);
-      // if (orderHistoryList) {
-      //   setOrderList(user.orderHistory?.map(order) ?? []);
-      // }
     } catch (err) {
       console.error(err);
     }
   };
+  // laddar in orderhistory direkt på sidan så att historiken uppdateras
   useEffect(() => {
     getOrderHistory();
   });
@@ -188,9 +199,9 @@ const Profile = () => {
                 placeholder="*************"
               />
             </label>
-            <label>
-              <input type="checkbox" />
-              GDPR ok!
+            <label className="gdpr-container">
+              <button className="gdpr"></button>
+              GDPR Ok!
             </label>
             <button onClick={() => signUpUser()} className="profile-btn">
               Sign me up!

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Beans } from "../store/Beans";
 import { useCartStore } from "../store/cart";
 
+//hämtar menyn och filtrerar coffe
 const Menu = () => {
   const { add } = useCartStore();
   const [data, setData] = useState<Beans[]>([]);
@@ -18,7 +19,6 @@ const Menu = () => {
         const json = await res.json();
         const coffeMenu: Beans[] = json.menu;
         setData(coffeMenu.filter((item) => item.id.startsWith("coffee")));
-        console.log(json);
       } catch (err) {
         console.error(err);
       }
