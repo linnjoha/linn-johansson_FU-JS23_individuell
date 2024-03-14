@@ -44,7 +44,6 @@ dialog::backdrop {
 }
 .tag-up {
   position: fixed;
-
   transform: translateY(-28px) translateX(280px);
 }
 .cart-btn {
@@ -91,6 +90,7 @@ dialog::backdrop {
   margin-bottom: -5px;
 }
 .change-cart-qnty {
+  cursor: pointer;
   margin: 0;
   text-align: center;
 }
